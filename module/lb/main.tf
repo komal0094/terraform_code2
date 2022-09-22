@@ -4,7 +4,8 @@ resource "aws_lb" "elb-test" {
   internal           = var.bol
   load_balancer_type = var.lb-type
   security_groups    = [var.lb-sg]
-  subnets            = var.lb-snets
+  subnets            = [for v in var.sub-id : v.snet-id]
+  # subnets            = var.subnet
 ip_address_type      = var.ip_address_type
 
 
@@ -50,7 +51,18 @@ resource "aws_lb_target_group" "elb-tg-001" {
 //create tg attachment to ec2
 # resource "aws_lb_target_group_attachment" "elb-tg-attach" {
 #    count = length(var.lb-snets)
-#    target_group_arn = aws_lb_target_group.elb-tg-001.arn
-#    target_id =  var.ec2-attach[count.index]
-#   port             = 80
+#   # count = 2
+#     target_group_arn = aws_lb_target_group.elb-tg-001.arn
+#     target_id =  var.ec2-attach[count.index]
+#     port             = 80
 # }
+
+
+//target group attach by ec2 for each loop
+# resource "aws_lb_target_group_attachment" "elb-tg-attach" {
+#     for_each = var.ec2-id
+#      target_group_arn = aws_lb_target_group.elb-tg-001.arn
+#      target_id =  each.value["s-id"]
+#     port             = 80
+# }
+

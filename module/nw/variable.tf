@@ -76,6 +76,8 @@ variable "pri-snets" {
 #       }
 #     }
 # }
-variable "snt-id" {}
+//ye dono variable net gate way k liy use h
+# variable "snt-id" {}
 
-variable "nat-req" {}
+# variable "nat-req" {}
+///ye

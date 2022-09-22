@@ -1,7 +1,7 @@
-provider "aws" {
-  region     = "us-east-1"
+# provider "aws" {
+#   region     = "us-east-1"
   
-}
+# }
 data "aws_availability_zones" "available" {
   state = "available"
 }
@@ -144,6 +144,7 @@ resource "aws_route" "igw001" {
 
 resource "aws_subnet" "pub-subnet" {
   for_each = var.pub-snets
+  map_public_ip_on_launch = "true"
  availability_zone  = each.value["availability_zone"]
   cidr_block = each.value["cidr_block"]
   vpc_id     = aws_vpc.my-vpc001.id
@@ -170,19 +171,19 @@ resource "aws_route_table_association" "pub-ass" {
    route_table_id = aws_route_table.pub-rt.id
  }
  //eip
- resource "aws_eip" "nat-ip" { }
+#  resource "aws_eip" "nat-ip" { }
 
 //nat gateway
-resource "aws_nat_gateway" "nat-gateway" {
-  # for_each = var.nat-req ? aws_subnet.pub-subnet : null
-  #for_each = var.nat-req ? lookup(aws_subnet.pub-subnet,var.snt-id,null) : null
-  allocation_id = aws_eip.nat-ip.id
-  count = var.nat-req ? 1 : 0
-  subnet_id     = lookup(aws_subnet.pub-subnet,var.snt-id,null).id
+# resource "aws_nat_gateway" "nat-gateway" {
+#   # for_each = var.nat-req ? aws_subnet.pub-subnet : null
+#   #for_each = var.nat-req ? lookup(aws_subnet.pub-subnet,var.snt-id,null) : null
+#   allocation_id = aws_eip.nat-ip.id
+#   count = var.nat-req ? 1 : 0
+#   subnet_id     = lookup(aws_subnet.pub-subnet,var.snt-id,null).id
  
-  tags = {
-    Name = "gw NAT"
-  }
-}
+#   tags = {
+#     Name = "gw NAT"
+#   }
+# }
 # pub-sub-1
 # pub-subnet
