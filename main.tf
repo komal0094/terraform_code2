@@ -1,7 +1,11 @@
+
 provider "aws" {
   region     = "us-east-1"
   
-}
+
+  }
+
+
 # my new branch test
 //module nw
 module "nw" {
@@ -27,121 +31,67 @@ module "nw" {
          cidr_block= "10.0.192.0/18"
       }
   }
-  snt-id = "pub-sub-1"
-  nat-req = true
+  //nat gateway variable both
+  # snt-id = "pub-sub-1"
+  # nat-req = true
 }
 
 
 
+/*
+#
+# module "db" {
+#   source = "./module/sg"
+#   sg_details = {
+#     "rds-sg" = {
+#         name = "rds"
+#         description = "rds"
+#         vpc_id = module.nw.vpc_id
 
-# //module sg
-module "sg" {
-   source     = "./module/sg"
-   sg_details = {
-#     # "web-sg" = {
-#     #     name = "test"
-#     #     description = "test"
-#     #     vpc_id = module.nw.vpc_id001
+#         ingress_rules = [
+#             {
+#                 from_port = 3306
+#                 to_port = 3306
+#                 protocol = "tcp"
+#                 cidr_blocks = ["0.0.0.0/0"]
+#                 security_groups = [lookup(module.sg.output-sg, "ec2-sg", null)]
+#                 self = null
+#             }
+            
+#         ]
+#     }
+# }
+# }
 
-#     #     ingress_rules = [
-#     #         {
-#     #             from_port = 80
-#     #             to_port = 80
-#     #             protocol = "tcp"
-#     #             cidr_blocks = ["0.0.0.0/0"]
-#     #             self = null
-#     #         },
-#     #         {
-                
-#     #             from_port = 443
-#     #             to_port   = 443
-#     #             protocol = "tcp"
-#     #             cidr_blocks = ["0.0.0.0/0"]
-#     #             self = null
-#     #         }
-#     #     ]
-#     # }
-#     //sg lb
-    "lb-sg" = {
-        name = "test"
-        description = "test"
-        vpc_id = module.nw.vpc_id
-
-        ingress_rules = [
-            {
-                from_port = 80
-                to_port = 80
-                protocol = "tcp"
-                cidr_blocks = ["0.0.0.0/0"]
-                self = null
-            },
-            {
-                
-                from_port = 443
-                to_port   = 443
-                protocol = "tcp"
-                cidr_blocks = ["0.0.0.0/0"]
-                self = null
-            }
-        ]
-
-  egress = {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
-    },
-    
-#     //sg ec2
-    "ec2-sg" = {
-        name = "test1"
-        description = "test1"
-        vpc_id = module.nw.vpc_id
-
-        ingress_rules = [
-            {
-                from_port = 80
-                to_port = 80
-                protocol = "tcp"
-                cidr_blocks = ["0.0.0.0/0"]
-                self = null
-            },
-            {
-                
-                from_port = 443
-                to_port   = 443
-                protocol = "tcp"
-                cidr_blocks = ["0.0.0.0/0"]
-                self = null
-            }
-         ]
-
-  egress = {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
-    }
-  }
-
-}
 
 //module ec2
 # module "ec2-instance" {
-#   count =  2
+#   # count =  2
 #   source = "./module/ec2-instance"
 #   ami = "ami-052efd3df9dad4825"
 #   insta-type = "t2.micro"
-#   pub-snet = module.nw.pub-subnet[count.index]
+#   pub-snet = lookup(module.nw.pub-snet-id, "pub-sub-1", null).id
+#   pub-snet2 = lookup(module.nw.pub-snet-id, "pub-sub-2", null).id
 #  sg = lookup(module.sg.output-sg, "ec2-sg", null)
-
+#  //rds specific things
+# # db-instance = module.rds.db-instance
+# # username1 = module.rds.username
+# #   password1 = module.rds.password
+# #   dbname1 = module.rds.dbname
 #   #  pub-sub = "${element(module.nw.pub-subnet, count.index)}"
 # }
 
+////
+# module "ec2-instance2" {
+#   # count =  2
+#   source = "./module/ec2-instance"
+#   ami = "ami-052efd3df9dad4825"
+#   insta-type = "t2.micro"
+ 
+#   pub-snet= lookup(module.nw.pub-snet-id, "pub-sub-2", null).id
+#  sg = lookup(module.sg.output-sg, "ec2-sg", null)
+ 
+# }
 
 # module "ec2-instance2" {
 #   source = "./module/ec2-instance"
@@ -153,8 +103,10 @@ module "sg" {
 # module "lb" {
 #   source = "./module/lb"
 #   lb-sg = lookup(module.sg.output-sg, "lb-sg", null)
-#   lb-snets = module.nw.pub-subnet
-#   # ec2-attach = module.ec2-instance.*.ec2-id
+#   lb-snets = lookup(module.nw.pub-snet-id, "pub-sub-1", null).id
+#   lb-snets2 = lookup(module.nw.pub-snet-id, "pub-sub-2", null).id
+#   ec2-attach = module.ec2-instance.*.ec2-id
+#     # ec2-attach = module.ec2-instance.ec2-id
 #   vpc_id = module.nw.vpc_id
 #   elb-name = "elb-test"
 #   bol = false
@@ -179,8 +131,93 @@ module "sg" {
 # max_size = 4
 # }
 
+//module rds
+# module "rds"{
+#   source = "./module/rds"
+#   rds-snet1 = lookup(module.nw.pub-snet-id, "pub-sub-1", null).id
+#   rds-snet2 = lookup(module.nw.pub-snet-id, "pub-sub-2", null).id
+#   rds-sg-id = lookup(module.db.output-sg, "rds-sg", null)
+#   username = "admin"
+#   password = "password123"
+#   dbname = "db_rds"
+# }
 
-output "pub-snt-id" {
-  value = lookup(module.nw.pub-snet-id,"pub-sub-1",null).id
+# output "pub-snt-id" {
+#   value = lookup(module.nw.pub-snet-id,"pub-sub-1",null)
   
+# }
+
+
+//ec2 for each module
+# module "ec2" {
+#   source = "./module/ec2-instance"
+#   ec2-sub = {
+#     test-ec2 = {
+#          pub-snet = lookup(module.nw.pub-snet-id, "pub-sub-1", null)
+#       },
+#       demo-ec2 = {
+#          pub-snet = lookup(module.nw.pub-snet-id, "pub-sub-2", null)
+#       }
+#   }
+#   sg = lookup(module.sg.output-sg, "ec2-sg", null)
+#   ami = "ami-052efd3df9dad4825"
+#   insta-type = "t2.micro"
+# }
+
+
+# output "weyhg" {
+#   value = lookup(module.ec2.ec2-id, "test-ec2", null)
+  
+# }
+
+# module "lb" {
+#    source = "./module/lb"
+#    lb-sg = lookup(module.sg.output-sg, "lb-sg", null)
+#   # subnet = [lookup(module.nw.pub-snet-id,"pub-sub-1",null).id,lookup(module.nw.pub-snet-id,"pub-sub-2",null).id]
+#    sub-id = {
+#     lb-sub = {
+#       snet-id = lookup(module.nw.pub-snet-id, "pub-sub-1", null)
+#     },
+#     lb-sub2 = {
+#       snet-id = lookup(module.nw.pub-snet-id, "pub-sub-2", null)
+#     }
+    
+#    } 
+  # ec2-attach = [lookup(module.ec2.ec2-id, "test-ec2", null), lookup(module.ec2.ec2-id, "demo-ec2", null)]
+  # ec2-id = {
+  #   ec2-1 ={
+  #     s-id = lookup(module.ec2.ec2-id, "test-ec2", null)
+  #   },
+  #   ec2-2 ={
+  #     s-id = lookup(module.ec2.ec2-id, "demo-ec2", null)
+  #   }
+  # }
+  # ec2-id = module.ec2.ec2-id
+   vpc_id = module.nw.vpc_id
+   elb-name = "elb-test"
+  bol = false
+   lb-type = "application"
+   ip_address_type = "ipv4"
+ 
+ }
+
+#  output "ec2-id" {
+#    value = module.ec2.ec2-id
+#  }
+//asg for each module
+module "asg" {
+  source = "./module/asg"
+asg-sg = lookup(module.sg.output-sg, "lb-sg", null)
+asg-snets = [lookup(module.nw.pub-snet-id,"pub-sub-1",null),lookup(module.nw.pub-snet-id,"pub-sub-2",null)]
+tg_arn = module.lb.tg-arn
+ ami = "ami-081861d718d9fbf06"
+ec2-type = "t2.micro"
+key_name = "key001"
+name_prefix = "asg-test"
+des-cap = 2
+min_size = 1
+max_size = 4
 }
+=======
+>>>>>>> daf08454dabcc0beb222d2372d5f186cc9f0d4c6
+*/

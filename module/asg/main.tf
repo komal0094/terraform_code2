@@ -16,7 +16,7 @@ resource "aws_launch_configuration" "asg_conf" {
 
 resource "aws_autoscaling_group" "asg-test" {
 
-vpc_zone_identifier = var.asg-snets 
+  vpc_zone_identifier = var.asg-snets 
   name_prefix               = var.name_prefix
   desired_capacity          = var.des-cap
   max_size                  = var.max_size

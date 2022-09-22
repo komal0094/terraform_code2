@@ -7,14 +7,19 @@ variable "lb-type" {
 variable "lb-sg" {
   
 }
-variable "lb-snets" {
+# variable "lb-snets" {
   
-}
+# }
+# variable "lb-snets2" {
+  
+# }
 variable "ip_address_type" {
   
 }
-# variable "ec2-attach" {
-  
+# variable "ec2-id" {
+#    type = map(object({
+#    s-id = string
+#    })) 
 # }
 variable "vpc_id" {
   
@@ -38,4 +43,11 @@ variable "unhealthy_threshold" {
 variable "target_type" {
     default = "instance"
   
+}
+///for each loop
+# variable "subnet" {
+  
+# }
+variable "sub-id" {
+  type = map
 }
