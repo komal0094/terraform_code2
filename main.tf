@@ -1,9 +1,7 @@
 
 provider "aws" {
   region     = "us-east-1"
-  
-
-  }
+   }
 
 
 # my new branch test
@@ -36,11 +34,85 @@ module "nw" {
   # snt-id = "pub-sub-1"
   # nat-req = true
 }
+   //sg lb
+   module "sg" {
+   source     = "./module/sg"
+   sg_details = {
+    "lb-sg" = {
+        name = "test"
+        description = "test"
+        vpc_id = module.nw.vpc_id
+
+        ingress_rules = [
+            {
+                from_port = 80
+                to_port = 80
+                protocol = "tcp"
+                cidr_blocks = ["0.0.0.0/0"]
+                security_groups = null
+                self = null
+            },
+            {
+
+                from_port = 443
+                to_port   = 443
+                protocol = "tcp"
+                cidr_blocks = ["0.0.0.0/0"]
+                security_groups = null
+                self = null
+            }
+        ]
+
+  egress = {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+    },
+
+#     //sg ec2
+    "ec2-sg" = {
+        name = "test1"
+        description = "test1"
+        vpc_id = module.nw.vpc_id
+
+        ingress_rules = [
+            {
+                from_port = 80
+                to_port = 80
+                protocol = "tcp"
+                cidr_blocks = ["0.0.0.0/0"]
+                security_groups = null
+                self = null
+            },
+            {
+
+                from_port = 443
+                to_port   = 443
+                protocol = "tcp"
+                cidr_blocks = ["0.0.0.0/0"]
+                security_groups = null
+                self = null
+            }
+         ]
+
+  egress = {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+    }
+   }
+   }
 
 
 
-/*
-#
+
+
 # module "db" {
 #   source = "./module/sg"
 #   sg_details = {
@@ -171,19 +243,19 @@ module "nw" {
   
 # }
 
-# module "lb" {
-#    source = "./module/lb"
-#    lb-sg = lookup(module.sg.output-sg, "lb-sg", null)
-#   # subnet = [lookup(module.nw.pub-snet-id,"pub-sub-1",null).id,lookup(module.nw.pub-snet-id,"pub-sub-2",null).id]
-#    sub-id = {
-#     lb-sub = {
-#       snet-id = lookup(module.nw.pub-snet-id, "pub-sub-1", null)
-#     },
-#     lb-sub2 = {
-#       snet-id = lookup(module.nw.pub-snet-id, "pub-sub-2", null)
-#     }
+module "lb" {
+   source = "./module/lb"
+   lb-sg = lookup(module.sg.output-sg, "lb-sg", null)
+  # subnet = [lookup(module.nw.pub-snet-id,"pub-sub-1",null).id,lookup(module.nw.pub-snet-id,"pub-sub-2",null).id]
+   sub-id = {
+    lb-sub = {
+      snet-id = lookup(module.nw.pub-snet-id, "pub-sub-1", null)
+    },
+    lb-sub2 = {
+      snet-id = lookup(module.nw.pub-snet-id, "pub-sub-2", null)
+    }
     
-#    } 
+   } 
   # ec2-attach = [lookup(module.ec2.ec2-id, "test-ec2", null), lookup(module.ec2.ec2-id, "demo-ec2", null)]
   # ec2-id = {
   #   ec2-1 ={
@@ -211,7 +283,7 @@ module "asg" {
 asg-sg = lookup(module.sg.output-sg, "lb-sg", null)
 asg-snets = [lookup(module.nw.pub-snet-id,"pub-sub-1",null),lookup(module.nw.pub-snet-id,"pub-sub-2",null)]
 tg_arn = module.lb.tg-arn
- ami = "ami-081861d718d9fbf06"
+ ami = "ami-08c40ec9ead489470"
 ec2-type = "t2.micro"
 key_name = "key001"
 name_prefix = "asg-test"
@@ -219,6 +291,3 @@ des-cap = 2
 min_size = 1
 max_size = 4
 }
-=======
->>>>>>> daf08454dabcc0beb222d2372d5f186cc9f0d4c6
-*/
