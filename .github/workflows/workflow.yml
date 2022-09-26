@@ -35,7 +35,7 @@ jobs:
         run : |
           aws autoscaling create-launch-configuration --launch-configuration-name new-lc --instance-type t2.micro --key-name key001 --image-id ami-08c40ec9ead489470
           aws autoscaling update-auto-scaling-group --auto-scaling-group-name asg-test20220926080525224900000002 --launch-configuration-name new-lc
-          aws autoscaling update-auto-scaling-group --auto-scaling-group-name external-asg --max-size 3
+          aws autoscaling update-auto-scaling-group --auto-scaling-group-name asg-test20220926080525224900000002 --max-size 3
 
 
 
