@@ -1,6 +1,7 @@
 name: terraform execution
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "main" ]
   pull_request:

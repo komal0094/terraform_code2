@@ -3,10 +3,10 @@ provider "aws" {
   region     = "us-east-1"
    }
 
-
+#test
 # my new branch test
 //module nw
-//
+//////
 module "nw" {
   source = "./module/nw"
   pub-snets = {
@@ -291,3 +291,4 @@ des-cap = 2
 min_size = 1
 max_size = 4
 }
+
