@@ -24,6 +24,19 @@ jobs:
       - name: terraform plan
         uses: dflook/terraform-plan@v1
 
+      - name: configure AWS
+        uses: aws-actions/configure-aws-credentials@v1
+        with: 
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: update/create lc asg
+        run : |
+          aws autoscaling create-launch-configuration --launch-configuration-name new-lc --instance-type t2.micro --key-name key001 --image-id ami-08c40ec9ead489470
+          aws autoscaling update-auto-scaling-group --auto-scaling-group-name asg-test20220926080525224900000002 --launch-configuration-name new-lc
+          aws autoscaling update-auto-scaling-group --auto-scaling-group-name external-asg --max-size 3
+
 
 
     # - name: terraform apply
