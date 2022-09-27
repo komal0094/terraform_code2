@@ -28,14 +28,10 @@ jobs:
           WITH_V: true
 
       - uses: actions/checkout@v2
-      - uses: CupOfTea696/gh-action-auto-release@v1.0.0
+      - uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          title: "Release: $version"
-          tag: "v$semver"
-          draft: false
-          regex: "/^Release: #{semver}$/i"
-        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: false
       # - uses: rickstaa/action-create-tag@v1
         # with:
         #   tag: "tag-1"
