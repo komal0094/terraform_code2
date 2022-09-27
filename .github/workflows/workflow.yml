@@ -36,8 +36,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: update/create lc asg
-        run : |
-          aws autoscaling update-auto-scaling-group --auto-scaling-group-name asg-test20220926080525224900000002 --launch-configuration-name new-lc
-          aws autoscaling update-auto-scaling-group --auto-scaling-group-name asg-test20220926080525224900000002 --max-size 3
+      # - name: update/create lc asg
+      #   run : |
+      #     aws autoscaling update-auto-scaling-group --auto-scaling-group-name asg-test20220926080525224900000002 --launch-configuration-name new-lc
+      #     aws autoscaling update-auto-scaling-group --auto-scaling-group-name asg-test20220926080525224900000002 --max-size 3
           
