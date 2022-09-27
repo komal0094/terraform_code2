@@ -2,8 +2,8 @@ name: terraform execution
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
+    branches: [ "new_workflow" ]
+  #pull_request:
 
 jobs:
   terraform:
@@ -23,6 +23,12 @@ jobs:
       - name: terraform plan
         uses: dflook/terraform-plan@v1
 
+      - uses: actions/checkout@v3
+      - uses: rickstaa/action-create-tag@v1
+        with:
+          tag: "tag-1"
+          message: "version-1"
+
       - name: configure AWS
         uses: aws-actions/configure-aws-credentials@v1
         with: 
@@ -35,4 +41,3 @@ jobs:
           aws autoscaling update-auto-scaling-group --auto-scaling-group-name asg-test20220926080525224900000002 --launch-configuration-name new-lc
           aws autoscaling update-auto-scaling-group --auto-scaling-group-name asg-test20220926080525224900000002 --max-size 3
           
-#hellohhhhh
