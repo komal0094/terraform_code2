@@ -27,21 +27,28 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
 
-      
+      - uses: actions/checkout@v2
+      - uses: CupOfTea696/gh-action-auto-release@v1.0.0
+        with:
+          title: "Release: $version"
+          tag: "v$semver"
+          draft: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - uses: rickstaa/action-create-tag@v1
         # with:
         #   tag: "tag-1"
         #   message: "version-1"
       # - uses: actions/checkout@v3
       
-      - name: terraform plan
-        uses: dflook/terraform-plan@v1
-      - name: configure AWS
-        uses: aws-actions/configure-aws-credentials@v1
-        with: 
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+      # - name: terraform plan
+      #   uses: dflook/terraform-plan@v1
+      # - name: configure AWS
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with: 
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: us-east-1
 
       # - name: update/create lc asg
       #   run : |
