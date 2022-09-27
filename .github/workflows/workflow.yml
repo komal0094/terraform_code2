@@ -19,7 +19,7 @@ jobs:
         name: Download codebase
       
       - name: Bump version and push tag
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
 
       - uses: anothrNick/github-tag-action@1.40.0
         name: adding tag
