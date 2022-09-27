@@ -2,7 +2,7 @@ name: terraform execution
 
 on:
   push:
-    branches: [ "new_workflow" ]
+    branches: [ "main" ]
   #pull_request:
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
     steps:
-      - uses: actions/checkout@v1   
+      - uses: actions/checkout@v3   
         name: Download codebase
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.40.0
@@ -30,14 +30,14 @@ jobs:
         #   message: "version-1"
       # - uses: actions/checkout@v3
       
-      # - name: terraform plan
-      #   uses: dflook/terraform-plan@v1
-      # - name: configure AWS
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with: 
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: us-east-1
+      - name: terraform plan
+        uses: dflook/terraform-plan@v1
+      - name: configure AWS
+        uses: aws-actions/configure-aws-credentials@v1
+        with: 
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
 
       # - name: update/create lc asg
       #   run : |
