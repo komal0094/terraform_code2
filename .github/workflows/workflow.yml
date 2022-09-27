@@ -3,7 +3,7 @@ name: terraform execution
 on:
   push:
     branches: [ "main" ]
-  #pull_request:
+  pull_request:
 
 jobs:
   terraform:
@@ -15,13 +15,17 @@ jobs:
       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
     steps:
-      - uses: actions/checkout@v3   
+      - uses: actions/checkout@v1  
         name: Download codebase
+      
       - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.40.0
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            WITH_V: true
+        uses: actions/checkout@v1
+
+      - uses: anothrNick/github-tag-action@1.40.0
+        name: adding tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
 
       
       # - uses: rickstaa/action-create-tag@v1
