@@ -6,37 +6,29 @@ on:
   # pull_request:
 
 jobs:
-  - job: j1
+  job1:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v1
-      - script: echo "job 1 run"
+      - uses: actions/checkout@v2
+      - run: echo "job 1 run"
         
     
-  - job: j2
+  job2:
     runs-on: ubuntu-latest
-    env:
-     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v1
-      - script: echo "job 2 run"
+      - uses: actions/checkout@v2
+      - run: echo "job 2 run"
           
-  - job: j3
+  job3: 
     runs-on: ubuntu-latest
-    env:
-     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v1
-      - script: echo "job 3 run"
+      - uses: actions/checkout@v2
+      - run: echo "job 3 run"
           
-  - job: j4
+  job4:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v1
-      - script: echo "job 4 run"
+      - uses: actions/checkout@v2
+      - run: echo "job 4 run"
           
 
