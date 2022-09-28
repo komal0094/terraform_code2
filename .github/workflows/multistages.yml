@@ -2,7 +2,7 @@ name: multistage execution
 
 on:
   push:
-    branches: [ "new_workflow" ]
+    branches: [ "main" ]
   # pull_request:
 
 jobs:
