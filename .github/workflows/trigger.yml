@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SERVICE_NAME: starter-service
-      DEPLOYMENT_NOTIFICATION_URL: https://api.github.com/repos/terraform_code2/dispatches
+      DEPLOYMENT_NOTIFICATION_URL: https://api.github.com/repos/komal0094/terraform_code2/dispatches
       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
     steps:
     - name: Notify Deployment Repo
