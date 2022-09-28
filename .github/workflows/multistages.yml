@@ -9,35 +9,35 @@ stages:
   - stage: stage1
     jobs:
     - job: j1
-      runs-on: ubuntu-latest
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      steps:
-        - uses: actions/checkout@v1
-        - script: echo "job 1 run"
+        runs-on: ubuntu-latest
+        env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        steps:
+          - uses: actions/checkout@v1
+          - script: echo "job 1 run"
       
     - job: j2
-      runs-on: ubuntu-latest
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      steps:
-        - uses: actions/checkout@v1
-        - script: echo "job 2 run"
+        runs-on: ubuntu-latest
+        env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        steps:
+          - uses: actions/checkout@v1
+          - script: echo "job 2 run"
 
   - stage: stage2
     jobs:
     - job: j3
-      runs-on: ubuntu-latest
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      steps:
-        - uses: actions/checkout@v1
-        - script: echo "job 3 run"
+        runs-on: ubuntu-latest
+        env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        steps:
+          - uses: actions/checkout@v1
+          - script: echo "job 3 run"
     - job: j4
-      runs-on: ubuntu-latest
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      steps:
-        - uses: actions/checkout@v1
-        - script: echo "job 4 run"
+        runs-on: ubuntu-latest
+        env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        steps:
+          - uses: actions/checkout@v1
+          - script: echo "job 4 run"
 
