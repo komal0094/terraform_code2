@@ -8,7 +8,7 @@ on:
 stages:
   - stage: stage1
     jobs:
-      - dep: j1
+    - job: j1
         runs-on: ubuntu-latest
         env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -16,7 +16,7 @@ stages:
           - uses: actions/checkout@v1
           - script: echo "job 1 run"
       
-      - dep2: j2
+    - job: j2
         runs-on: ubuntu-latest
         env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -26,14 +26,14 @@ stages:
 
   - stage: stage2
     jobs:
-      - dep3: j3
+    - job: j3
         runs-on: ubuntu-latest
         env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         steps:
           - uses: actions/checkout@v1
           - script: echo "job 3 run"
-      - dep4: j4
+    - job: j4
         runs-on: ubuntu-latest
         env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
