@@ -6,26 +6,26 @@ on:
   # pull_request:
 
 jobs:
- - job: j1
+  job1:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: echo "job 1 run"
         
     
- - job: j2
+  job2:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: echo "job 2 run"
           
- - job: j3
+  job3: 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: echo "job 3 run"
           
- - job: j4
+  job4:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
