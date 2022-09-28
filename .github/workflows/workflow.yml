@@ -1,6 +1,6 @@
 name: terraform execution
 
- on:
+on:
   push:
     branches: [ "main" ]
   pull_request:
