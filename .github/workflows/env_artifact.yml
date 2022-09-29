@@ -11,9 +11,9 @@ jobs:
      GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
   steps:
     - run: |
-      env
-      touch env_arti.txt
-      env >> env_arti.txt
+        env
+        touch env_arti.txt
+        env >> env_arti.txt
     - uses: actions/upload-artifact@v3
       with:
         name: my-artifact
