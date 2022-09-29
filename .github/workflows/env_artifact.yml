@@ -1,4 +1,4 @@
-name: terraform execution
+name: env_artifact download
 
 on:
   push:
@@ -12,9 +12,9 @@ jobs:
     steps:
       - run: |
           env
-          touch env_arti.txt
-          env >> env_arti.txt
+          touch env_art.txt
+          env >> env_art.txt
       - uses: actions/upload-artifact@v3
         with:
-          name: my-artifact
-          path: env_arti.txt
+          name: my-second-artifact
+          path: env_art.txt
