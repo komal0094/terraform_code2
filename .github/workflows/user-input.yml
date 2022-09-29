@@ -1,4 +1,4 @@
-name: Mixed inputs
+name: workflow dispatch user-inputs
 
 on:
   workflow_dispatch:
@@ -7,12 +7,12 @@ on:
         type: choice
         description: Who to greet
         options: 
-        - monalisa
-        - cschleiden
+        - updates
+        - metadata
       message:
         required: true
 jobs:
-  greet:
+  print-input:
     runs-on: ubuntu-latest
     steps:
       - run: echo "user input workflow"
