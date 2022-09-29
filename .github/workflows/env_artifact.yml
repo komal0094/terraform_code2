@@ -1,0 +1,20 @@
+name: env_artifact download
+
+on:
+  push:
+    branches: [ "new_workflow" ]
+
+jobs:
+  env_print:
+    runs-on: ubuntu-latest
+    env:
+       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    steps:
+      - run: |
+          env
+          touch env_art.txt
+          env >> env_art.txt
+      - uses: actions/upload-artifact@v3
+        with:
+          name: my-second-artifact
+          path: env_art.txt

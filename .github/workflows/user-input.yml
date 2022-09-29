@@ -4,13 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       name:
-        type: choice
-        description: Who to greet
-        options: 
-        - updates
-        - metadata
-      message:
         required: true
+        default: 'warning' 
+        type: choice
+        options:
+        - info
+        - warning
+        - debug 
+      # message:
+      ##   required: true
 jobs:
   print-input:
     runs-on: ubuntu-latest
