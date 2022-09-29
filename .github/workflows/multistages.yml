@@ -4,6 +4,9 @@ on:
   push:
     branches: [ "new_workflow" ]
   # pull_request:
+    repository_dispatch:
+      types: 
+        deploy_service
 
 jobs:
   job1:
