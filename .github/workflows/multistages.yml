@@ -6,7 +6,7 @@ on:
   # pull_request:
     repository_dispatch:
       types: 
-        deploy_service
+       - deploy_service
 
 jobs:
   job1:
