@@ -7,11 +7,11 @@ jobs:
  deploy: 
     runs-on: ubuntu-latest
     env:
-      DEPLOYMENT_NOTIFICATION_URL: https://api.github.com/repos/komal0094/terraform_code2/dispatches
+      DEPLOYMENT_NOTIFICATION_URL: https://api.github.com/repos/komal0094/test_repo/dispatches
       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
     steps:
      - run: |
-         AUTH_HEADER="Authorization: token ${{ secrets.GITHUB_TOKEN }}"
+         AUTH_HEADER="Authorization: token ${{ secrets.GIT_PAT}}"
          PAYLOAD='{ "event_type": "deploy_service"}'
          curl --request POST "$DEPLOYMENT_NOTIFICATION_URL" --header "$AUTH_HEADER" --header "Content-Type: application/json" --data-raw "$PAYLOAD" -f -i
 
