@@ -6,7 +6,7 @@ on:
   # pull_request:
     repository_dispatch:
       types: 
-        deploy_service
+       - deploy_service
 
 jobs:
   job1:
@@ -38,3 +38,4 @@ jobs:
       - run: echo "job 4 run"
           
 
+##
