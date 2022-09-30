@@ -52,8 +52,11 @@ jobs:
         #   message: "version-1"
       # - uses: actions/checkout@v3
       
-      # - name: terraform plan
-      #   uses: dflook/terraform-plan@v1
+      - name: terraform plan
+        uses: dflook/terraform-plan@v1
+
+      - name: terraform apply
+        uses: dflook/terraform-apply@v1 
       # - name: configure AWS
       #   uses: aws-actions/configure-aws-credentials@v1
       #   with: 
