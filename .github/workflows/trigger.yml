@@ -2,7 +2,7 @@ name: trigger-other repo
 
 on:
   push:
-    branches: [ "new_workflow" ]
+    branches: [ "main" ]
 jobs:
  deploy: 
     runs-on: ubuntu-latest

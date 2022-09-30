@@ -11,8 +11,10 @@ jobs:
        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
        var: test-env 
     steps:
-      - run: |
+        run: 
           echo "var=test-env-variable" >> $GITHUB_ENV
+
+      - run: |
           env
           touch env_art.txt
           env >> env_art.txt
