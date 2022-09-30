@@ -9,8 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+       var: test-env 
     steps:
       - run: |
+          echo "var=test-env-variable" >> $GITHUB_ENV
           env
           touch env_art.txt
           env >> env_art.txt

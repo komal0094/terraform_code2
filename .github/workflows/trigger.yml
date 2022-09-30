@@ -1,4 +1,4 @@
-name: trigger
+name: trigger-other repo
 
 on:
   push:
