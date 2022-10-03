@@ -6,7 +6,7 @@ resource "aws_launch_configuration" "asg_conf" {
   security_groups = [var.asg-sg]
   key_name = var.key_name
   user_data = <<-EOF
-!/bin/bash
+ #!/bin/bash
  sudo su -
  apt update -y
  apt install nginx -y
@@ -19,7 +19,7 @@ resource "aws_launch_configuration" "asg_conf" {
 }
  
 
-//asg resource
+///asg resource
 
 resource "aws_autoscaling_group" "asg-test" {
 
